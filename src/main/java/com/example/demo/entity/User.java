@@ -15,6 +15,9 @@ import javax.persistence.*;
 @Table(name = "User")
 public class User extends BaseEntity {
 
+    @Column(name = "name", columnDefinition = "varchar(255) not null")
+    private String name;
+
     /**
     student or teacher number
      */
