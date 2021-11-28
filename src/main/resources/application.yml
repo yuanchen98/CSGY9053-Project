@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  # config of data source
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/elective?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: cycy1005
+
+  jpa:
+    hibernate:
+      # create or update
+      ddl-auto: update
+    # whether to show the sql in terminal
+    show-sql: true
+
+thymeleaf:
+  cache: false
+  prefix:
+    classpath: /templates
