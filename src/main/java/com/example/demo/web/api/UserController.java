@@ -6,6 +6,7 @@ import com.example.demo.entity.other.ResponseEntity;
 import com.example.demo.entity.rpo.LoginRPOFactory;
 import com.example.demo.service.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,7 +36,8 @@ public class UserController {
     private UserDTOFactory userDTOFactory;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<UserDTOFactory.UserDTO> login(@Valid @RequestBody LoginRPOFactory.LoginRPO loginRPO, BindingResult bindingResult) {
+    public ResponseEntity<UserDTOFactory.UserDTO> login(@Valid @RequestBody LoginRPOFactory.LoginRPO loginRPO
+            , BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR.value(),
                     bindingResult.getFieldError().getDefaultMessage());
