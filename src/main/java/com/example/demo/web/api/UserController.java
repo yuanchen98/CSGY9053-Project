@@ -8,10 +8,7 @@ import com.example.demo.service.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -26,6 +23,7 @@ public class UserController {
     @Resource
     private UserServiceImpl userService;
 
+
     @Resource
     private HttpSession httpSession;
 
@@ -36,7 +34,8 @@ public class UserController {
     private UserDTOFactory userDTOFactory;
 
     @PostMapping(value = "/login")
-    public ResponseEntity<UserDTOFactory.UserDTO> login(@Valid @RequestBody LoginRPOFactory.LoginRPO loginRPO
+    @ResponseBody
+    public ResponseEntity<UserDTOFactory.UserDTO> login(@RequestBody @Valid LoginRPOFactory.LoginRPO loginRPO
             , BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR.value(),

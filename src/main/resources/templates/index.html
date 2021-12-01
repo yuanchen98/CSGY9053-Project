@@ -78,29 +78,39 @@
 <script>
     $(function () {
 
-        $('#loginButton').click(function () {
+        $('#loginButton').click(function (e) {
+            e.preventDefault();
             // alert('ok');
             number = $('#usrNumber').val();
             password = $('#pwd').val();
+            var t = {
+                'number': number,
+                'password': password
+            }
 
             $.ajax({
-                url: "/api/usr/login",
+                url: "/api/user/login",
                 type: "POST",
-                processData: false,
-                data: JSON.stringify({'number': number, 'password': password}),
+                data: JSON.stringify(t),
                 contentType: "application/json",
                 dataType: "json",
+                success: function (dt) {
+                    let res = dt
+                    console.log("success")
+                    if (res.code == 200) {
+                        window.location.href = "/welcome"
+                    }
+                    if (res.code == 500) {
+                        $('.p1').show().html(res.message)
+                    }
+                },
+                complete: function (dt) {
+                    console.log("not success")
+                },
+                error: function (dt) {
+                    console.log("not success")
+                },
 
-            }).done(function (data) {
-                if (data.code == 200) {
-                    // alert('username')
-                    location.href = "/welcome.html"
-
-                } else {
-                    // alert('username');
-                    $('.p1').show().html(data.message)
-
-                }
             })
         });
     });
