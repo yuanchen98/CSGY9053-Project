@@ -24,14 +24,14 @@ public class PageController {
     @GetMapping(value = "/index")
     public String login() {
         if (httpSession.getAttribute(USER_ID) != null) {
-            return "redirect:/welcome";
+            return "redirect:/dashboard";
         }
         return "index";
     }
 
-    @GetMapping(value = "/welcome")
+    @GetMapping(value = "/dashboard")
     public String dashboard() {
 
-        return "welcome";
+        return "dashboard";
     }
 }
