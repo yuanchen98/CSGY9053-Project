@@ -98,6 +98,7 @@
                     let res = dt
                     console.log("success")
                     if (res.code == 200) {
+                        localStorage.setItem("user", JSON.stringify(res.data))
                         window.location.href = "/index"
                     }
                     if (res.code == 500) {

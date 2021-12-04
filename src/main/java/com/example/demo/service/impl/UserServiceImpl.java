@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+
+import static com.example.demo.entity.constant.SystemConstant.USER_ID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,6 +31,28 @@ public class UserServiceImpl implements UserService {
         }
         if (user.isDeleted() == true) {
             throw new SystemGlobalException("Your account is disabled temporarily");
+        }
+        return user;
+    }
+
+    public Boolean modifyPassword(User user, String password) {
+        password = DigestUtils.md5DigestAsHex(password.getBytes());
+        if(user.getPassword().equals(password)){
+            throw new SystemGlobalException("Password can't be same with the original");
+        }
+        user.setPassword(password);
+        userRepository.save(user);
+        return true;
+    }
+
+    public User getCurrentUser(HttpSession httpSession) {
+        Integer userId = (Integer) httpSession.getAttribute(USER_ID);
+        if (userId == null) {
+            throw new SystemGlobalException("Please login");
+        }
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            throw new SystemGlobalException("Please login");
         }
         return user;
     }

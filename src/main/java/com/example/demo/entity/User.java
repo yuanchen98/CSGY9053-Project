@@ -27,6 +27,9 @@ public class User extends BaseEntity {
     @Column(name = "password", columnDefinition = "varchar(255) not null")
     private String password;
 
+    /**
+    default 0: student
+     */
     @Builder.Default
     @Column(name = "role", columnDefinition = "int(11) not null default 0")
     private Integer role=0;
