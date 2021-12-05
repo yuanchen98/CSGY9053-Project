@@ -45,7 +45,7 @@ public class CourseDTOFactory {
         private Integer limitNum = 0;
 
         @Builder.Default
-        private Integer stuNum = 0; // 已选的人数
+        private Integer stuNum = 0;
     }
 
     public Function<Course, CourseDTO> convertToDTO = course -> {

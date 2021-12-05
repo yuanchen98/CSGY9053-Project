@@ -69,10 +69,6 @@ public class CourseController {
     public ResponseEntity<List<CourseDTOFactory.CourseDTO>> list() {
 //        @RequestBody CourseRPOFactory.CourseRPO courseRPO
 
-//        Page<Course> page = courseService.findValidByPage(coursePageRPO);
-//        Page<CourseDTOFactory.CourseDTO> dtos = page.map(courseDTOFactory.pojoToDTO);
-//        return new ResponseEntity<>(HttpStatus.OK.value(), "操作成功", dtos);
-
         User teacher = userService.getCurrentUser(httpSession);
         List<CourseDTOFactory.CourseDTO> courseList=
                 courseService.getByTeacher(teacher).stream().map(courseDTOFactory.convertToDTO).collect(Collectors.toList());;
