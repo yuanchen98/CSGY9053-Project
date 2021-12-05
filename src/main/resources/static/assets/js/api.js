@@ -28,3 +28,7 @@ function modifyPwd(data) {
 function saveCourse(data) {
     return request(`/api/course`, { type: "POST", data });
 }
+
+function listCourse(data) {
+    return request(`/api/course/list`, { type: "POST", data });
+}

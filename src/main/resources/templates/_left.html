@@ -30,6 +30,12 @@
         <p>Course Management</p>
       </a>
     </li>
+    <li th:if="${session.user_role == 1}">
+      <a href="/teacherTable">
+        <i class="pe-7s-notebook"></i>
+        <p>Course Table</p>
+      </a>
+    </li>
 
   </ul>
 </div>

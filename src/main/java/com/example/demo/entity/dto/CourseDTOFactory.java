@@ -48,7 +48,7 @@ public class CourseDTOFactory {
         private Integer stuNum = 0; // 已选的人数
     }
 
-    public Function<Course, CourseDTO> pojoToDTO = course -> {
+    public Function<Course, CourseDTO> convertToDTO = course -> {
         return CourseDTO.builder()
                 .id(course.getId())
                 .name(course.getName())

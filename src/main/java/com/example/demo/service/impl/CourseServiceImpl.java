@@ -7,6 +7,7 @@ import com.example.demo.service.CourseService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -24,4 +25,11 @@ public class CourseServiceImpl implements CourseService {
     public Course getById(Integer id) {
         return courseRepository.getById(id);
     }
+
+    @Override
+    public List<Course> getByTeacher(User teacher) {
+        return courseRepository.findByTeacher(teacher);
+    }
+
+
 }

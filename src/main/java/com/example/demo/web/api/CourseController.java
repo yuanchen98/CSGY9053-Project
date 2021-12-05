@@ -8,6 +8,7 @@ import com.example.demo.entity.other.ResponseEntity;
 import com.example.demo.entity.rpo.CourseRPOFactory;
 import com.example.demo.service.CourseService;
 import com.example.demo.service.UserService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * xx
@@ -59,6 +63,21 @@ public class CourseController {
         course.setTeacher(user);
         courseService.update(course);
         return new ResponseEntity<>(HttpStatus.OK.value(), "Add course success");
+    }
+
+    @PostMapping("list")
+    public ResponseEntity<List<CourseDTOFactory.CourseDTO>> list() {
+//        @RequestBody CourseRPOFactory.CourseRPO courseRPO
+
+//        Page<Course> page = courseService.findValidByPage(coursePageRPO);
+//        Page<CourseDTOFactory.CourseDTO> dtos = page.map(courseDTOFactory.pojoToDTO);
+//        return new ResponseEntity<>(HttpStatus.OK.value(), "操作成功", dtos);
+
+        User teacher = userService.getCurrentUser(httpSession);
+        List<CourseDTOFactory.CourseDTO> courseList=
+                courseService.getByTeacher(teacher).stream().map(courseDTOFactory.convertToDTO).collect(Collectors.toList());;
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Find your course list success", courseList);
+
     }
 
 }
