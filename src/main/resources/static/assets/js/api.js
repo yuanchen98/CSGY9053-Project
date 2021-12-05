@@ -24,3 +24,7 @@ function request(url, { type, data, contentType, dataType}) {
 function modifyPwd(data) {
     return request(`/api/user/modify/password?password=${data}`, { type: "POST" });
 }
+
+function saveCourse(data) {
+    return request(`/api/course`, { type: "POST", data });
+}

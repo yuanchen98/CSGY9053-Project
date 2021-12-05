@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"></html>
+
+<head lang="en" th:insert="_header::header">
+</head>
+<body>
+
+<div class="wrapper" id="app">
+    <div class="sidebar" data-color="black">
+
+        <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+
+
+        <div th:replace="_left.html"/>
+    </div>
+
+    <div class="main-panel">
+        <div th:replace="_topright.html"/>
+
+
+        <div class="content">
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Add a course</h4>
+                            </div>
+                            <div class="content">
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Course Name</label>
+                                                <input type="text" class="form-control" id="name" v-model="form.name">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Credit</label>
+                                                <input type="number" class="form-control" id="credit" v-model="form.credit">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Total Students Limit</label>
+                                                <input type="number" class="form-control" id="limitNum" v-model="form.limitNum">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Begin Time of Class</label>
+                                                <input type="date" class="form-control" id="beginTime" v-model="form.beginTime">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>End Time of Class</label>
+                                                <input type="date" class="form-control" id="endTime" v-model="form.endTime">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                    <button @click="addCourse()" class="btn btn-info btn-fill pull-right">Add Course</button>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="footer" th:insert="_bottom::footer">
+
+        </footer>
+
+    </div>
+</div>
+
+
+
+<div th:replace="_footer.html"/>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            user: JSON.parse(localStorage.getItem("user")),
+            form: {
+
+            },
+            msg:null
+        },
+        methods:{
+            addCourse() {
+                const res = saveCourse(this.form);
+                if (res.code === 200) {
+                    alert("Add course success!")
+                    this.reset()
+                }
+                alert(res.message)
+            },
+        },
+        // computed:{
+        //     toRole(num){
+        //         return num===0?'Student':'Teacher'
+        //     }
+        // },
+        created() {
+        }
+    })
+</script>
+</body>
+
+
+</html>

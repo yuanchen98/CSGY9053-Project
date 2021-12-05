@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import static com.example.demo.entity.constant.SystemConstant.USER_ID;
-import static com.example.demo.entity.constant.SystemConstant.ACTIVE_URL;
+//import static com.example.demo.entity.constant.SystemConstant.ACTIVE_URL;
 
 @Controller
 public class PageController {
@@ -43,7 +43,7 @@ public class PageController {
 
     @GetMapping(value = "/dashboard")
     public String dashboard(Model model) {
-        httpSession.setAttribute(ACTIVE_URL, "dashboard");
+//        httpSession.setAttribute(ACTIVE_URL, "dashboard");
 //        model.addAttribute("courses", courseService.count());
 //        model.addAttribute("students", userService.count());
 //        model.addAttribute("elective", userCourseService.count());
@@ -52,14 +52,20 @@ public class PageController {
 
     @GetMapping(value = "/user")
     public String user() {
-        httpSession.setAttribute(ACTIVE_URL, "user");
+//        httpSession.setAttribute(ACTIVE_URL, "user");
         return "user";
     }
 
     @GetMapping(value = "/table")
     public String table() {
-        httpSession.setAttribute(ACTIVE_URL, "table");
+//        httpSession.setAttribute(ACTIVE_URL, "table");
         return "table";
+    }
+
+    @GetMapping(value = "/course")
+    public String course() {
+//        httpSession.setAttribute(ACTIVE_URL, "course");
+        return "course";
     }
 
     @GetMapping("/logOut")

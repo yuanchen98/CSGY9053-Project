@@ -18,6 +18,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import static com.example.demo.entity.constant.SystemConstant.USER_ID;
+import static com.example.demo.entity.constant.SystemConstant.USER_ROLE;
+
 
 @RestController
 @RequestMapping(value = "/api/user")
@@ -48,6 +50,7 @@ public class UserController {
             User user = userService.login(loginRPO.getNumber(), loginRPO.getPassword());
             if (user != null) {
                 httpSession.setAttribute(USER_ID, user.getId());
+                httpSession.setAttribute(USER_ROLE, user.getRole());
                 return new ResponseEntity<>(HttpStatus.OK.value(), "login success", userDTOFactory.convertToDTO(user));
             }
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR.value(),"No such user or the account sign-in was incorrect");

@@ -24,5 +24,12 @@
         <p>Table List</p>
       </a>
     </li>
+    <li th:if="${session.user_role == 1}">
+      <a href="/course">
+        <i class="pe-7s-notebook"></i>
+        <p>Course Management</p>
+      </a>
+    </li>
+
   </ul>
 </div>
