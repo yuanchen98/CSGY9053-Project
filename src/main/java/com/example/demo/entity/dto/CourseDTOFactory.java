@@ -53,7 +53,7 @@ public class CourseDTOFactory {
                 .id(course.getId())
                 .name(course.getName())
                 .credit(course.getCredit())
-                .teacher(userDTOFactory.convertToDTO(course.getTeacher()))
+                .teacher(userDTOFactory.convertToDTO.apply(course.getTeacher()))
                 .startTime(course.getStartTime())
                 .endTime(course.getEndTime())
                 .limitNum(course.getStuLimit())

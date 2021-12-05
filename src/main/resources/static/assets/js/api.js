@@ -37,6 +37,14 @@ function listAll(data) {
     return request(`/api/course/listAll`, { type: "POST", data });
 }
 
+function listEnrolled(data) {
+    return request(`/api/courseUser/listEnrolled`, { type: "POST", data });
+}
+
 function electiveByCourseId(courseId) {
     return request(`/api/courseUser/${courseId}`, { type: "GET" });
+}
+
+function dropByCourseId(courseId) {
+    return request(`/api/courseUser/${courseId}/drop`, { type: "GET" });
 }

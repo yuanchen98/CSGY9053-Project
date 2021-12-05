@@ -3,20 +3,22 @@ package com.example.demo.web.api;
 import com.example.demo.entity.Course;
 import com.example.demo.entity.CourseUser;
 import com.example.demo.entity.User;
+import com.example.demo.entity.dto.CourseDTOFactory;
+import com.example.demo.entity.dto.CourseUserDTOFactory;
 import com.example.demo.entity.other.ResponseEntity;
 import com.example.demo.entity.other.SystemGlobalException;
+import com.example.demo.entity.rpo.CourseRPOFactory;
 import com.example.demo.service.CourseService;
 import com.example.demo.service.CourseUserService;
 import com.example.demo.service.UserService;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -34,6 +36,12 @@ public class CourseUserController {
 
     @Resource
     private HttpSession httpSession;
+
+    @Resource
+    private CourseDTOFactory courseDTOFactory;
+
+    @Resource
+    private CourseUserDTOFactory courseUserDTOFactory;
 
 
 
@@ -65,5 +73,14 @@ public class CourseUserController {
         courseUserService.update(courseUser);
         return new ResponseEntity<>(HttpStatus.OK.value(), "Enroll success");
 
+    }
+
+    @PostMapping("/listEnrolled")
+    public ResponseEntity<List<CourseUserDTOFactory.CourseUserDTO>> list() {
+
+        User stu = userService.getCurrentUser(httpSession);
+        List<CourseUserDTOFactory.CourseUserDTO> courseUserDTOList=
+                courseUserService.findByStudent(stu).stream().map(courseUserDTOFactory.convertToDTO).collect(Collectors.toList());;
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Find your course list success", courseUserDTOList);
     }
 }

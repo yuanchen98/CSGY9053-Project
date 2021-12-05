@@ -51,7 +51,7 @@ public class UserController {
             if (user != null) {
                 httpSession.setAttribute(USER_ID, user.getId());
                 httpSession.setAttribute(USER_ROLE, user.getRole());
-                return new ResponseEntity<>(HttpStatus.OK.value(), "login success", userDTOFactory.convertToDTO(user));
+                return new ResponseEntity<>(HttpStatus.OK.value(), "login success", userDTOFactory.convertToDTO.apply(user));
             }
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR.value(),"No such user or the account sign-in was incorrect");
         }

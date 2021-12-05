@@ -8,6 +8,7 @@ import com.example.demo.service.CourseUserService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class CourseUserServiceImpl implements CourseUserService {
@@ -23,5 +24,10 @@ public class CourseUserServiceImpl implements CourseUserService {
     @Override
     public CourseUser update(CourseUser courseUser) {
         return courseUserRepository.saveAndFlush(courseUser);
+    }
+
+    @Override
+    public List<CourseUser> findByStudent(User user) {
+        return courseUserRepository.findByStudent(user);
     }
 }

@@ -80,6 +80,12 @@ public class PageController {
         return "student_table";
     }
 
+    @GetMapping(value = "/studentDrop")
+    public String studentDrop() {
+//        httpSession.setAttribute(ACTIVE_URL, "course");
+        return "student_table_drop";
+    }
+
     @GetMapping("/logOut")
     public String logOut() {
         httpSession.removeAttribute(USER_ID);
