@@ -13,4 +13,8 @@ public interface CourseService {
     Course getById(Integer id);
 
     List<Course> getByTeacher(User teacher);
+
+    List<Course> getAll();
+
+
 }

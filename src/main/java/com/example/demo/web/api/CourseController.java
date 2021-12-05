@@ -73,6 +73,13 @@ public class CourseController {
         List<CourseDTOFactory.CourseDTO> courseList=
                 courseService.getByTeacher(teacher).stream().map(courseDTOFactory.convertToDTO).collect(Collectors.toList());;
         return new ResponseEntity<>(HttpStatus.OK.value(), "Find your course list success", courseList);
+    }
+
+    @PostMapping("listAll")
+    public ResponseEntity<List<CourseDTOFactory.CourseDTO>> listAll() {
+        List<CourseDTOFactory.CourseDTO> courseList=
+                courseService.getAll().stream().map(courseDTOFactory.convertToDTO).collect(Collectors.toList());;
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Find your course list success", courseList);
 
     }
 

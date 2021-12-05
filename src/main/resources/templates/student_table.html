@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head lang="en" th:insert="_header::header">
+</head>
+
+<body>
+
+<div class="wrapper" id="app">
+    <div class="sidebar" data-color="black">
+
+        <!--   you can change the color of the sidebar using: data-color="blue | azure | green | orange | red | purple" -->
+
+
+        <div th:replace="_left.html"/>
+    </div>
+
+    <div class="main-panel">
+        <div th:replace="_topright.html"/>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">All Courses</h4>
+                                <!--                                <p class="category">Here is a subtitle for this table</p>-->
+                            </div>
+                            <div class="content table-responsive table-full-width">
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                    <th>Course ID</th>
+                                    <th>Course Name</th>
+                                    <th>Teacher Name</th>
+                                    <th>Start Time</th>
+                                    <th>End Time</th>
+                                    <th>Credit</th>
+                                    <th>Total Students</th>
+                                    <th>Operation</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(item,index) in list" :key="index">
+                                        <td>{{index+1}}</td>
+                                        <td>{{item.name}}</td>
+                                        <td>{{item.teacher.name}}</td>
+                                        <td>{{item.startTime.split(' ')[0]}}</td>
+                                        <td>{{item.endTime.split(' ')[0]}}</td>
+                                        <td>{{item.credit}}</td>
+                                        <td>{{item.stuNum}}/{{item.limitNum}}</td>
+                                        <td>
+                                            <button type="button" @click="elective(item.id)" class="btn btn-info btn-xs" >
+                                                Enroll
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer" th:insert="_bottom::footer">
+
+        </footer>
+
+
+    </div>
+</div>
+
+
+</body>
+<div th:replace="_footer.html"/>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            course: {},
+            param: {},
+            list: [],
+            msg: null,
+        },
+        methods:{
+            fetch() {
+                const res = listAll();
+                if (res.code === 200) {
+                    this.list = res.data
+                }
+            },
+            elective(courseId) {
+                const res = electiveByCourseId(courseId);
+                if (res.code === 200) {
+                    alert(res.message)
+                    this.fetch()
+                } else {
+                    alert(res.message)
+                }
+            },
+        },
+        created() {
+            this.fetch()
+        }
+    })
+</script>
+
+<div th:replace="_footer.html"/>
+
+</html>

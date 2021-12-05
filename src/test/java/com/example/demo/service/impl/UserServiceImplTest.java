@@ -26,4 +26,14 @@ class UserServiceImplTest {
         userRepository.save(user);
     }
 
+    @Test
+    void testUser1() {
+        User user = new User();
+        user.setName("testStu");
+        user.setNumber(23456);
+        user.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+        user.setRole(1);
+        userRepository.save(user);
+    }
+
 }

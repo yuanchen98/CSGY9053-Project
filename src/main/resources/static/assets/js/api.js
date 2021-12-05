@@ -32,3 +32,11 @@ function saveCourse(data) {
 function listCourse(data) {
     return request(`/api/course/list`, { type: "POST", data });
 }
+
+function listAll(data) {
+    return request(`/api/course/listAll`, { type: "POST", data });
+}
+
+function electiveByCourseId(courseId) {
+    return request(`/api/courseUser/${courseId}`, { type: "GET" });
+}

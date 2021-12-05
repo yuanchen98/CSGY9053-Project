@@ -36,6 +36,12 @@
         <p>Course Table</p>
       </a>
     </li>
+    <li th:if="${session.user_role == 0}">
+      <a href="/studentTable">
+        <i class="pe-7s-notebook"></i>
+        <p>Course Table</p>
+      </a>
+    </li>
 
   </ul>
 </div>

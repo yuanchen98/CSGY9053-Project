@@ -74,6 +74,12 @@ public class PageController {
         return "teacher_table";
     }
 
+    @GetMapping(value = "/studentTable")
+    public String studentTable() {
+//        httpSession.setAttribute(ACTIVE_URL, "course");
+        return "student_table";
+    }
+
     @GetMapping("/logOut")
     public String logOut() {
         httpSession.removeAttribute(USER_ID);

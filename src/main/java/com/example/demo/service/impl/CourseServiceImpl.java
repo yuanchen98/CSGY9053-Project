@@ -31,5 +31,10 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findByTeacher(teacher);
     }
 
+    @Override
+    public List<Course> getAll() {
+        return courseRepository.findAll();
+    }
+
 
 }
