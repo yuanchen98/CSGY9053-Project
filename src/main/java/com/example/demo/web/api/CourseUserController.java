@@ -72,7 +72,6 @@ public class CourseUserController {
         courseService.update(course);
         courseUserService.update(courseUser);
         return new ResponseEntity<>(HttpStatus.OK.value(), "Enroll success");
-
     }
 
     @PostMapping("/listEnrolled")
@@ -82,5 +81,23 @@ public class CourseUserController {
         List<CourseUserDTOFactory.CourseUserDTO> courseUserDTOList=
                 courseUserService.findByStudent(stu).stream().map(courseUserDTOFactory.convertToDTO).collect(Collectors.toList());;
         return new ResponseEntity<>(HttpStatus.OK.value(), "Find your course list success", courseUserDTOList);
+    }
+
+    @GetMapping("/{courseId}/drop")
+    public ResponseEntity<Void> dropByCourseId(@PathVariable Integer courseId) {
+        User user = userService.getCurrentUser(httpSession);
+        Course course = courseService.getById(courseId);
+        if (course == null) {
+            throw new SystemGlobalException("No such class");
+        }
+        CourseUser courseUser = courseUserService.findByStudentAndCourse(user, course);
+        if(courseUser==null){
+            throw new SystemGlobalException("You didn't enroll this class");
+        }
+        course.setStuNum(course.getStuNum() - 1);
+        courseUserService.deleteCourseUserByCourseAndStudent(course, user);
+        courseService.update(course);
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Drop success");
+
     }
 }

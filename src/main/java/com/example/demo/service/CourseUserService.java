@@ -14,4 +14,6 @@ public interface CourseUserService {
     CourseUser update(CourseUser courseUser);
 
     List<CourseUser> findByStudent(User user);
+
+    Long deleteCourseUserByCourseAndStudent(Course course, User student);
 }
