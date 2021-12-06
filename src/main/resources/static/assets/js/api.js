@@ -52,3 +52,11 @@ function dropByCourseId(courseId) {
 function courseuserDetail(courseId){
     return request(`/api/courseUser/${courseId}/detail`, { type: "GET" });
 }
+
+function saveGrade(courseuserId, grade) {
+    return request(`/api/courseUser/${courseuserId}/grade/${grade}`, {type: "POST"})
+}
+
+function archive(courseId){
+    return request(`/api/courseUser/${courseId}/archive`,{type:"POST"})
+}

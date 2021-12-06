@@ -94,6 +94,9 @@ public class CourseUserController {
         if (courseUser == null) {
             throw new SystemGlobalException("You didn't enroll this class");
         }
+        if(courseUser.isDeleted()){
+            throw new SystemGlobalException("The course has been already archived, you can't drop it");
+        }
         course.setStuNum(course.getStuNum() - 1);
         courseUserService.deleteCourseUserByCourseAndStudent(course, user);
         courseService.update(course);
@@ -110,5 +113,41 @@ public class CourseUserController {
         List<CourseUserDTOFactory.CourseUserDTO> courseUserDTOList = courseUserService.findByCourse(course)
                 .stream().map(courseUserDTOFactory.convertToDTO).collect(Collectors.toList());
         return new ResponseEntity<>(HttpStatus.OK.value(), "Find detail success", courseUserDTOList);
+    }
+
+    @PostMapping("/{id}/grade/{grade}")
+    public ResponseEntity<Void> saveGrade(@PathVariable Integer id, @PathVariable Double grade) {
+        User user = userService.getCurrentUser(httpSession);
+        if (user.getRole() != 1) {
+            throw new SystemGlobalException("You don't have permission, please contact the administrator");
+        }
+        CourseUser courseUser = courseUserService.findById(id);
+        if (courseUser == null) {
+            throw new SystemGlobalException("No such data");
+        }
+        if (courseUser.isDeleted()){
+            throw new SystemGlobalException("The course has been already archived");
+
+        }
+        courseUser.setGrade(grade);
+        courseUserService.update(courseUser);
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Grade save success");
+    }
+
+    @PostMapping("/{courseId}/archive")
+    public ResponseEntity<Void> archive(@PathVariable Integer courseId) {
+        User user = userService.getCurrentUser(httpSession);
+        Course course = courseService.getById(courseId);
+        if (user.getRole() != 1) {
+            throw new SystemGlobalException("You don't have permission, please contact the administrator");
+        }
+        if (course == null) {
+            throw new SystemGlobalException("No such course");
+        }
+        if (course.isDeleted()){
+            throw new SystemGlobalException("The course has been already archived");
+        }
+        courseUserService.archive(course);
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Course archive success");
     }
 }

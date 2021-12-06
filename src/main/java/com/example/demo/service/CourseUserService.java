@@ -17,5 +17,9 @@ public interface CourseUserService {
 
     List<CourseUser> findByCourse(Course course);
 
+    CourseUser findById(Integer id);
+
     Long deleteCourseUserByCourseAndStudent(Course course, User student);
+
+    void archive(Course course);
 }

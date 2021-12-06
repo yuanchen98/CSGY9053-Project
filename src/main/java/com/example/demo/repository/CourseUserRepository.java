@@ -13,14 +13,13 @@ import java.util.List;
 @Repository
 public interface CourseUserRepository extends JpaRepository<CourseUser, Integer> {
 
-    @Query("from CourseUser where student = ?1 and course = ?2 and deleted = false")
+    @Query("from CourseUser where student = ?1 and course = ?2")
     CourseUser findByStudentAndCourse(User student, Course course);
 
-
-    @Query("from CourseUser where student = ?1 and deleted = false")
+    @Query("from CourseUser where student = ?1")
     List<CourseUser> findByStudent(User student);
 
-    @Query("from CourseUser where course = ?1 and deleted = false")
+    @Query("from CourseUser where course = ?1")
     List<CourseUser> findByCourse(Course course);
 
     @Transactional

@@ -54,6 +54,9 @@
                                                     class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-detail">
                                                 Detail
                                             </button>
+                                            <button type="button" @click="archiveById(item.id)" class="btn btn-info btn-xs" >
+                                                Archive
+                                            </button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -98,7 +101,7 @@
                                 <input type="number" v-model="item.grade"/>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-success btn-xs" @click="saveDetail(item)">
+                                <button type="button" class="btn btn-success btn-xs" @click="saveGrade(item)">
                                     Save
                                 </button>
                             </td>
@@ -149,6 +152,21 @@
                 } else {
                     alert(res.message)
                 }
+            },
+            saveGrade(item) {
+                const res = saveGrade(item.id, item.grade);
+                if (res.code === 200) {
+                    // alert(res.message)
+                    this.courseuserDetail(item.courseId)
+                }
+                alert(res.message)
+            },
+            archiveById(courseId) {
+                const res = archive(courseId);
+                if (res.code === 200) {
+                    this.fetch()
+                }
+                alert(res.message)
             },
         },
 
