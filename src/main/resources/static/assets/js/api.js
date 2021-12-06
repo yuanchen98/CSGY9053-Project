@@ -48,3 +48,7 @@ function electiveByCourseId(courseId) {
 function dropByCourseId(courseId) {
     return request(`/api/courseUser/${courseId}/drop`, { type: "GET" });
 }
+
+function courseuserDetail(courseId){
+    return request(`/api/courseUser/${courseId}/detail`, { type: "GET" });
+}

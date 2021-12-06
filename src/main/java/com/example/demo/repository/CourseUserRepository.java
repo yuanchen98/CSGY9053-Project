@@ -20,6 +20,9 @@ public interface CourseUserRepository extends JpaRepository<CourseUser, Integer>
     @Query("from CourseUser where student = ?1 and deleted = false")
     List<CourseUser> findByStudent(User student);
 
+    @Query("from CourseUser where course = ?1 and deleted = false")
+    List<CourseUser> findByCourse(Course course);
+
     @Transactional
     Long deleteCourseUserByCourseAndStudent(Course course, User student);
 }

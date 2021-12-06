@@ -32,6 +32,11 @@ public class CourseUserServiceImpl implements CourseUserService {
     }
 
     @Override
+    public List<CourseUser> findByCourse(Course course) {
+        return courseUserRepository.findByCourse(course);
+    }
+
+    @Override
     public Long deleteCourseUserByCourseAndStudent(Course course, User student) {
         return courseUserRepository.deleteCourseUserByCourseAndStudent(course, student);
     }

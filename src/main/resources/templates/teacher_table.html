@@ -26,7 +26,7 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Your Courses</h4>
-<!--                                <p class="category">Here is a subtitle for this table</p>-->
+                                <!--                                <p class="category">Here is a subtitle for this table</p>-->
                             </div>
                             <div class="content table-responsive table-full-width">
                                 <table class="table table-hover table-striped">
@@ -38,6 +38,7 @@
                                     <th>End Time</th>
                                     <th>Credit</th>
                                     <th>Total Students</th>
+                                    <th>Course Management</th>
                                     </thead>
                                     <tbody>
                                     <tr v-for="(item,index) in list" :key="index">
@@ -48,6 +49,12 @@
                                         <td>{{item.endTime.split(' ')[0]}}</td>
                                         <td>{{item.credit}}</td>
                                         <td>{{item.stuNum}}/{{item.limitNum}}</td>
+                                        <td>
+                                            <button type="button" @click="courseuserDetail(item.id)"
+                                                    class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal-detail">
+                                                Detail
+                                            </button>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -66,6 +73,45 @@
 
 
     </div>
+    <div class="modal fade" id="modal-detail">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Course Detail</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Index</th>
+                            <th>Student Name</th>
+                            <th>Student Number</th>
+                            <th>Score</th>
+                            <th>Operation</th>
+                        </tr>
+                        <tr v-for="(item,index) in detailList" :key="index">
+                            <td>{{index+1}}</td>
+                            <td>{{item.student.name}}</td>
+                            <td>{{item.student.number}}</td>
+                            <td>
+                                <input type="number" v-model="item.grade"/>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-success btn-xs" @click="saveDetail(item)">
+                                    Save
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
+
 </div>
 
 
@@ -78,9 +124,10 @@
             course: {},
             param: {},
             list: [],
+            detailList: [],
             msg: null,
         },
-        methods:{
+        methods: {
             fetch() {
                 const res = listCourse(this.param);
                 if (res.code === 200) {
@@ -95,7 +142,16 @@
                     alert(res.message)
                 }
             },
+            courseuserDetail(courseId) {
+                const res = courseuserDetail(courseId);
+                if (res.code === 200) {
+                    this.detailList = res.data
+                } else {
+                    alert(res.message)
+                }
+            },
         },
+
         created() {
             this.fetch()
         }

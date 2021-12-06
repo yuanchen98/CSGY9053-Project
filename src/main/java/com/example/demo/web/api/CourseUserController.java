@@ -44,7 +44,6 @@ public class CourseUserController {
     private CourseUserDTOFactory courseUserDTOFactory;
 
 
-
     @GetMapping("/{courseId}")
     public ResponseEntity<Void> electiveByCourseId(@PathVariable Integer courseId) {
         User user = userService.getCurrentUser(httpSession);
@@ -53,14 +52,14 @@ public class CourseUserController {
             throw new SystemGlobalException("No such class");
         }
         CourseUser courseUser = courseUserService.findByStudentAndCourse(user, course);
-        if(courseUser!=null){
+        if (courseUser != null) {
             throw new SystemGlobalException("You've already enrolled in this class");
-        }else{
-            if(course.isDeleted()){
+        } else {
+            if (course.isDeleted()) {
                 throw new SystemGlobalException("This course has been closed");
-            }else if(course.getEndTime().getTime()<new Date().getTime()){
+            } else if (course.getEndTime().getTime() < new Date().getTime()) {
                 throw new SystemGlobalException("The course has already ended");
-            }else if(course.getStuNum()>=course.getStuLimit()){
+            } else if (course.getStuNum() >= course.getStuLimit()) {
                 throw new SystemGlobalException("The course is full");
             }
         }
@@ -78,8 +77,9 @@ public class CourseUserController {
     public ResponseEntity<List<CourseUserDTOFactory.CourseUserDTO>> list() {
 
         User stu = userService.getCurrentUser(httpSession);
-        List<CourseUserDTOFactory.CourseUserDTO> courseUserDTOList=
-                courseUserService.findByStudent(stu).stream().map(courseUserDTOFactory.convertToDTO).collect(Collectors.toList());;
+        List<CourseUserDTOFactory.CourseUserDTO> courseUserDTOList =
+                courseUserService.findByStudent(stu).stream().map(courseUserDTOFactory.convertToDTO).collect(Collectors.toList());
+        ;
         return new ResponseEntity<>(HttpStatus.OK.value(), "Find your course list success", courseUserDTOList);
     }
 
@@ -91,13 +91,24 @@ public class CourseUserController {
             throw new SystemGlobalException("No such class");
         }
         CourseUser courseUser = courseUserService.findByStudentAndCourse(user, course);
-        if(courseUser==null){
+        if (courseUser == null) {
             throw new SystemGlobalException("You didn't enroll this class");
         }
         course.setStuNum(course.getStuNum() - 1);
         courseUserService.deleteCourseUserByCourseAndStudent(course, user);
         courseService.update(course);
         return new ResponseEntity<>(HttpStatus.OK.value(), "Drop success");
+    }
 
+    @GetMapping("/{courseId}/detail")
+    public ResponseEntity<List<CourseUserDTOFactory.CourseUserDTO>> courseuserDetail(@PathVariable Integer courseId) {
+        User user = userService.getCurrentUser(httpSession);
+        if (user.getRole() != 1) {
+            throw new SystemGlobalException("You don't have permission, please contact the administrator");
+        }
+        Course course = courseService.getById(courseId);
+        List<CourseUserDTOFactory.CourseUserDTO> courseUserDTOList = courseUserService.findByCourse(course)
+                .stream().map(courseUserDTOFactory.convertToDTO).collect(Collectors.toList());
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Find detail success", courseUserDTOList);
     }
 }
