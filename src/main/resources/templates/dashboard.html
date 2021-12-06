@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<div class="wrapper">
+<div class="wrapper" id="app">
     <div class="sidebar" data-color="balck" >
 
         <!--
@@ -27,26 +27,43 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="card">
+                        <div class="card" th:if="${session.user_role == 0}">
 
                             <div class="header">
-                                <h4 class="title">Email Statistics</h4>
-                                <p class="category">Last Campaign Performance</p>
+                                <h4 class="title">Course statistics</h4>
                             </div>
                             <div class="content">
-                                <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+                                <form>
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label>Total Credits</label>
+                                                <input type="text" class="form-control" disabled placeholder="Total Credits" v-model="user.credit">
+                                            </div>
+                                        </div>
 
-                                <div class="footer">
-                                    <div class="legend">
-                                        <i class="fa fa-circle text-info"></i> Open
-                                        <i class="fa fa-circle text-danger"></i> Bounce
-                                        <i class="fa fa-circle text-warning"></i> Unsubscribe
                                     </div>
-                                    <hr>
-                                    <div class="stats">
-                                        <i class="fa fa-clock-o"></i> Campaign sent 2 days ago
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label>Total Courses Taken</label>
+                                                <input type="text" class="form-control" disabled placeholder="User Name" th:value="${session.courses}">
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label>Average Grade</label>
+                                                <input type="text" class="form-control" disabled placeholder="Account Number" v-model="average">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -69,5 +86,58 @@
 
 <div th:replace="_footer.html"/>
 
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            user: JSON.parse(localStorage.getItem("user")),
+            form: {
+                password: null,
+                passwordConfirm: null,
+            },
+            msg:null,
+            average:0
+        },
+        methods:{
+            toRole(num){
+                return num===0?'Student':'Teacher'
+            },
+            modifyPassword() {
+                let that = this;
+                let {password, passwordConfirm} = that.form
+                if (password && password === passwordConfirm && password != '') {
+                    const res = modifyPwd(password);
+                    if (res.code === 200) {
+                        window.location.href = "/"
+                        that.msg = "Password change success"
+                    } else {
+                        alert(res.message)
+                    }
+                } else if (password === passwordConfirm){
+                    alert("Password can't be empty")
+                } else{
+                    alert("Two Passwords are not consistent, please re-enter")
+                }
+            },
+            averageGrade(){
+                const res= avgGrade()
+                if(res.code===200){
+                    this.average=res.data
+                }else{
+                    alert(res.message)
+                }
+
+            }
+        },
+        // computed:{
+        //     toRole(num){
+        //         return num===0?'Student':'Teacher'
+        //     }
+        // },
+        created() {
+            this.averageGrade()
+        }
+    })
+</script>
 
 </html>

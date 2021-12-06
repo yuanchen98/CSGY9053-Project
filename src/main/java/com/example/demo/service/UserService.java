@@ -17,5 +17,7 @@ public interface UserService {
 
     User getCurrentUser(HttpSession httpSession);
 
+    Long count();
+
 
 }

@@ -60,3 +60,7 @@ function saveGrade(courseuserId, grade) {
 function archive(courseId){
     return request(`/api/courseUser/${courseId}/archive`,{type:"POST"})
 }
+
+function avgGrade(){
+    return request(`/api/courseUser/avgGrade`,{type:"GET"})
+}

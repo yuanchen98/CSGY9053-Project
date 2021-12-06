@@ -16,5 +16,7 @@ public interface CourseService {
 
     List<Course> getAll();
 
+    Long count();
+
 
 }

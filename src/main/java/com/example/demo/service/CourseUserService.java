@@ -22,4 +22,6 @@ public interface CourseUserService {
     Long deleteCourseUserByCourseAndStudent(Course course, User student);
 
     void archive(Course course);
+
+    Long count();
 }

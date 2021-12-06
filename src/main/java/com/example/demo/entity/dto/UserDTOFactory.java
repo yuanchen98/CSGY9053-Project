@@ -47,7 +47,7 @@ public class UserDTOFactory {
                 .id(user.getId())
                 .name(user.getName())
                 .number(user.getNumber())
-                .credit(user.getNumber())
+                .credit(user.getCredit())
                 .role(user.getRole())
                 .build();
 

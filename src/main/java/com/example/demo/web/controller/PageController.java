@@ -21,12 +21,12 @@ public class PageController {
     @Resource
     private HttpSession httpSession;
 
-//    @Resource
-//    private UserService userService;
-//    @Resource
-//    private CourseService courseService;
-//    @Resource
-//    private CourseUserService userCourseService;
+    @Resource
+    private UserService userService;
+    @Resource
+    private CourseService courseService;
+    @Resource
+    private CourseUserService userCourseService;
 
     @GetMapping(value = "/")
     public String index(){
@@ -44,9 +44,10 @@ public class PageController {
     @GetMapping(value = "/dashboard")
     public String dashboard(Model model) {
 //        httpSession.setAttribute(ACTIVE_URL, "dashboard");
-//        model.addAttribute("courses", courseService.count());
-//        model.addAttribute("students", userService.count());
-//        model.addAttribute("elective", userCourseService.count());
+//        httpSession.setAttribute("totalcourses", courseService.count());
+//        httpSession.setAttribute("students", userService.count());
+        httpSession.setAttribute("courses", userCourseService.count());
+//        model.addAttribute("courses", userCourseService.count());
         return "dashboard";
     }
 

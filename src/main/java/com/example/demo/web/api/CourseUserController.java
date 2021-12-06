@@ -150,4 +150,26 @@ public class CourseUserController {
         courseUserService.archive(course);
         return new ResponseEntity<>(HttpStatus.OK.value(), "Course archive success");
     }
+
+    @GetMapping("/avgGrade")
+    public ResponseEntity<Double> avgGrade() {
+        User user = userService.getCurrentUser(httpSession);
+        List<CourseUser> courseUserList = courseUserService.findByStudent(user);
+        if(courseUserList==null){
+            return new ResponseEntity<>(HttpStatus.OK.value(), "Course archive success", 0d);
+        }
+        double totalGrade = 0;
+        int totalCourses = 0;
+        for(CourseUser courseUser:courseUserList){
+            if(courseUser.isDeleted()){
+                totalGrade+=courseUser.getGrade()*courseUser.getCourse().getCredit();
+                totalCourses+=courseUser.getCourse().getCredit();
+            }
+        }
+        if(totalCourses==0){
+            return new ResponseEntity<>(HttpStatus.OK.value(), "Course archive success", 0d);
+        }
+        double avgGrade = totalGrade/totalCourses;
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Course archive success", avgGrade);
+    }
 }

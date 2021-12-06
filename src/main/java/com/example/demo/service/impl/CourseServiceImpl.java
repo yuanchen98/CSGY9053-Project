@@ -36,5 +36,10 @@ public class CourseServiceImpl implements CourseService {
         return courseRepository.findAll();
     }
 
+    @Override
+    public Long count() {
+        return courseRepository.count();
+    }
+
 
 }

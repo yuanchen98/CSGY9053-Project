@@ -73,4 +73,9 @@ public class CourseUserServiceImpl implements CourseUserService {
         courseRepository.save(course);
     }
 
+    @Override
+    public Long count() {
+        return courseUserRepository.count();
+    }
+
 }
