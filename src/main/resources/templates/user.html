@@ -33,7 +33,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>University</label>
-                                                <input type="text" class="form-control" disabled placeholder="University" value="New York University">
+                                                <input type="text" class="form-control" disabled
+                                                       placeholder="University" value="New York University">
                                             </div>
                                         </div>
 
@@ -43,7 +44,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>User Name</label>
-                                                <input type="text" class="form-control" disabled placeholder="User Name" v-model="user.name">
+                                                <input type="text" class="form-control" disabled placeholder="User Name"
+                                                       v-model="user.name">
                                             </div>
                                         </div>
                                     </div>
@@ -52,7 +54,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Account Number</label>
-                                                <input type="text" class="form-control" disabled placeholder="Account Number" v-model="user.number">
+                                                <input type="text" class="form-control" disabled
+                                                       placeholder="Account Number" v-model="user.number">
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +64,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Role</label>
-                                                <input type="text" class="form-control" disabled placeholder="Role" :value="toRole(user.role)">
+                                                <input type="text" class="form-control" disabled placeholder="Role"
+                                                       :value="toRole(user.role)">
                                             </div>
                                         </div>
                                     </div>
@@ -74,28 +78,30 @@
                     <div class="col-md-4">
                         <div class="card card-user">
                             <div class="image">
-                                <img src="https://ununsplash.imgix.net/photo-1431578500526-4d9613015464?fit=crop&fm=jpg&h=300&q=75&w=400" alt="..."/>
+                                <img src="assets/img/NYU_Long_RGB_Color.png" alt="..."/>
                             </div>
                             <div class="content">
                                 <div class="author">
                                     <a href="#">
-                                        <img class="avatar border-gray" src="assets/img/faces/face-3.jpg" alt="..."/>
+                                        <img class="avatar border-gray" src="assets/img/faces/face-1.jpg" alt="..."/>
 
-                                        <h4 class="title">Mike Andrew<br />
-                                            <small>michael24</small>
+                                        <h4 class="title">Yuan Chen<br/>
+                                            <small>yc5118@nyu.edu</small>
                                         </h4>
+                                        <br>
                                     </a>
                                 </div>
-                                <p class="description text-center"> "Lamborghini Mercy <br>
-                                    Your chick she so thirsty <br>
-                                    I'm in that two seat Lambo"
+                                <p class="description text-center"> You have only one life, <br>
+                                    make the most of it <br>
                                 </p>
                             </div>
                             <hr>
                             <div class="text-center">
-                                <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-                                <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
+                                <a href="https://github.com/yuanchen98">
+                                    <button class="btn btn-simple">
+                                        <i class="fa fa-github"></i>
+                                    </button>
+                                </a>
 
                             </div>
                         </div>
@@ -114,7 +120,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" class="form-control" id="password" v-model="form.password">
+                                                <input type="password" class="form-control" id="password"
+                                                       v-model="form.password">
                                             </div>
                                         </div>
 
@@ -125,14 +132,16 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Confirm your password</label>
-                                                <input type="password" class="form-control" id="passwordConfirm" v-model="form.passwordConfirm">
+                                                <input type="password" class="form-control" id="passwordConfirm"
+                                                       v-model="form.passwordConfirm">
                                             </div>
                                         </div>
                                     </div>
 
 
-
-                                    <button @click="modifyPassword" class="btn btn-info btn-fill pull-right">Save my new password</button>
+                                    <button @click="modifyPassword" class="btn btn-info btn-fill pull-right">Save my new
+                                        password
+                                    </button>
                                     <div class="clearfix"></div>
                                 </form>
                             </div>
@@ -152,7 +161,6 @@
 </div>
 
 
-
 <div th:replace="_footer.html"/>
 <script>
     var app = new Vue({
@@ -163,11 +171,11 @@
                 password: null,
                 passwordConfirm: null,
             },
-            msg:null
+            msg: null
         },
-        methods:{
-            toRole(num){
-                return num===0?'Student':'Teacher'
+        methods: {
+            toRole(num) {
+                return num === 0 ? 'Student' : 'Teacher'
             },
             modifyPassword() {
                 let that = this;
@@ -180,9 +188,9 @@
                     } else {
                         alert(res.message)
                     }
-                } else if (password === passwordConfirm){
+                } else if (password === passwordConfirm) {
                     alert("Password can't be empty")
-                } else{
+                } else {
                     alert("Two Passwords are not consistent, please re-enter")
                 }
             },
