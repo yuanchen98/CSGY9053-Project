@@ -1,11 +1,14 @@
 package com.example.demo.web.api;
 
+import com.example.demo.entity.Course;
 import com.example.demo.entity.User;
 import com.example.demo.entity.dto.UserDTOFactory;
 import com.example.demo.entity.other.ResponseEntity;
 import com.example.demo.entity.other.SystemGlobalException;
 import com.example.demo.entity.rpo.LoginRPOFactory;
+import com.example.demo.entity.rpo.UserRPOFactory;
 import com.example.demo.repository.UserRepository;
+import com.example.demo.service.UserService;
 import com.example.demo.service.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
@@ -38,6 +41,9 @@ public class UserController {
     @Resource
     private UserDTOFactory userDTOFactory;
 
+    @Resource
+    private UserRPOFactory userRPOFactory;
+
 
     @PostMapping(value = "/login")
     @ResponseBody
@@ -65,6 +71,15 @@ public class UserController {
             httpSession.removeAttribute(USER_ID);
         }
         return new ResponseEntity<>(HttpStatus.OK.value(), "Password change success");
+    }
+
+    @PostMapping("/regist")
+    public ResponseEntity<Void> regist(@RequestBody @Valid UserRPOFactory.UserRPO userRPO
+            , BindingResult bindingResult) {
+
+        User user = userRPOFactory.rpoToPojo.apply(userRPO);
+        userService.regist(user);
+        return new ResponseEntity<>(HttpStatus.OK.value(), "Register success");
     }
 
 

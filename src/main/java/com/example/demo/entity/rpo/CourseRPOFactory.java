@@ -48,7 +48,6 @@ public class CourseRPOFactory {
         @Builder.Default
         private Integer limitNum = 0;
 
-
     }
 
     public Function<CourseRPO, Course> rpoToPojo = courseSaveRPO -> {

@@ -62,4 +62,16 @@ public class UserServiceImpl implements UserService {
         return userRepository.count();
     }
 
+    @Override
+    public User regist(User user) {
+        if(userRepository.findByName(user.getName())!=null){
+            throw new SystemGlobalException("User name has already existed");
+        }
+        if(userRepository.findByNumber(user.getNumber())!=null){
+            throw new SystemGlobalException("User number has already existed");
+        }
+        return userRepository.saveAndFlush(user);
+    }
+
+
 }

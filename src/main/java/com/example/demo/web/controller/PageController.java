@@ -92,4 +92,9 @@ public class PageController {
         httpSession.removeAttribute(USER_ID);
         return "redirect:/index";
     }
+
+    @GetMapping(value = "/regist")
+    public String regist(){
+        return "regist";
+    }
 }

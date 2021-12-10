@@ -19,5 +19,9 @@ public interface UserService {
 
     Long count();
 
+    User regist(User user);
+
+
+
 
 }
