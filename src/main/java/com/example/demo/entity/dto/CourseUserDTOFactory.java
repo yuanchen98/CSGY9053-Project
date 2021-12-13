@@ -31,8 +31,8 @@ public class CourseUserDTOFactory {
         @Builder.Default
         private Double grade = 0d;
 
-        @Builder.Default
-        private Integer status = 0;
+//        @Builder.Default
+//        private Integer status = 0;
     }
 
     public Function<CourseUser, CourseUserDTO> convertToDTO = userCourse -> {
@@ -42,7 +42,7 @@ public class CourseUserDTOFactory {
                 .course(courseDTOFactory.convertToDTO.apply(userCourse.getCourse()))
                 .student(userDTOFactory.convertToDTO.apply(userCourse.getStudent()))
                 .grade((userCourse.getGrade()))
-                .status(userCourse.getStatus())
+//                .status(userCourse.getStatus())
                 .id(userCourse.getId())
                 .build();
     };

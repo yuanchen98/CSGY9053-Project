@@ -22,7 +22,7 @@ class UserServiceImplTest {
         user.setName("test");
         user.setNumber(123456);
         user.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-        user.setRole(0);
+        user.setRole(1);
         userRepository.save(user);
     }
 
@@ -32,7 +32,7 @@ class UserServiceImplTest {
         user.setName("testStu");
         user.setNumber(23456);
         user.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-        user.setRole(1);
+        user.setRole(0);
         userRepository.save(user);
     }
 

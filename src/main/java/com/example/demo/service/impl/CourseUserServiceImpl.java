@@ -61,7 +61,7 @@ public class CourseUserServiceImpl implements CourseUserService {
         List<User> stuList = new ArrayList<>();
         List<CourseUser> courseUserList = courseUserRepository.findByCourse(course);
         for(CourseUser courseuser: courseUserList){
-            courseuser.setStatus(1);
+//            courseuser.setStatus(1);
             User stu = courseuser.getStudent();
             stu.setCredit(stu.getCredit()+courseuser.getCourse().getCredit());
             stuList.add(stu);
