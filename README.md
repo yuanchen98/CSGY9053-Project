@@ -4,7 +4,9 @@ Yuan Chen
 
 yc5118@nyu.edu
 
+Github link: https://github.com/yuanchen98/CSGY9053-Project
 
+Youtube link: https://youtu.be/ISkaT31FJGA
 
 #### Outline
 
@@ -26,7 +28,7 @@ It includes the knowledge of networking, databases, REST API and Sping Framework
     2. Users can not get access to any page of the system before login.
     3. The password is encrypted by MD5 in the database.
 
-    **Register**: 
+  - **Register**: 
 
     1. Students can register their account through the register page. They can set account name, account number and password. 
     2. System can check whether the same account name and account number has already existed in the database. If the account name and account number has already existed, require the user to enter new account name and account number.
