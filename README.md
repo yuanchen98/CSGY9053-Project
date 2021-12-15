@@ -92,15 +92,10 @@ It includes the knowledge of networking, databases, REST API and Sping Framework
 - **Back-end:**
 
   - Java 1.8
-
   - MySQL
-
   - Spring Boot
-
   - Spring Date JPA
-
   - Lombok
-
   - Thymeleaf
 
     
